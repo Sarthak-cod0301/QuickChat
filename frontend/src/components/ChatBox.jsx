@@ -64,7 +64,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
     
     setLoading(true)
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/message/${selectedChat._id}`)
+      const { data } = await axios.get(`https://quickchat-backend-36zo.onrender.com/api/message/${selectedChat._id}`)
       setMessages(data)
       
       if (data.length === 0) {
@@ -85,7 +85,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
     if (!selectedChat) return
     
     try {
-      await axios.put(`http://localhost:5000/api/message/read/${selectedChat._id}`)
+      await axios.put(`https://quickchat-backend-36zo.onrender.com/api/message/read/${selectedChat._id}`)
     } catch (error) {
       console.error('Mark as read error:', error)
     }
@@ -103,7 +103,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
     if (file) formData.append('file', file)
 
     try {
-      const { data } = await axios.post('http://localhost:5000/api/message', formData, {
+      const { data } = await axios.post('https://quickchat-backend-36zo.onrender.com/api/message', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       
@@ -123,7 +123,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
 
   const handleDeleteMessage = async (messageId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/message/${messageId}`)
+      await axios.delete(`https://quickchat-backend-36zo.onrender.com/api/message/${messageId}`)
       setMessages(prev => prev.filter(m => m._id !== messageId))
       toast.success('Message deleted')
     } catch (error) {
@@ -137,7 +137,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
     
     if (window.confirm('Are you sure you want to clear all messages in this chat? This will only clear messages for you, not for the other person.')) {
       try {
-        await axios.delete(`http://localhost:5000/api/message/clear/${selectedChat._id}`)
+        await axios.delete(`https://quickchat-backend-36zo.onrender.com/api/message/clear/${selectedChat._id}`)
         setMessages([])
         toast.success('Chat cleared successfully for you')
         
@@ -159,7 +159,7 @@ const ChatBox = ({ socket, selectedChat, user, setSelectedChat, onMenuClick, isM
 
   const handleDownloadFile = async (message) => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/message/file/${message._id}`)
+      const { data } = await axios.get(`https://quickchat-backend-36zo.onrender.com/api/message/file/${message._id}`)
       window.open(data.fileUrl, '_blank')
     } catch (error) {
       console.error('Download error:', error)
