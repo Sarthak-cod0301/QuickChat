@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', {
+      const { data } = await axios.post('https://quickchat-backend-36zo.onrender.com/api/auth/login', {
         email,
         password
       })
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', {
+      const { data } = await axios.post('https://quickchat-backend-36zo.onrender.com/api/auth/register', {
         username,
         email,
         password
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (updates) => {
     try {
-      const { data } = await axios.put('http://localhost:5000/api/auth/profile', updates)
+      const { data } = await axios.put('https://quickchat-backend-36zo.onrender.com/api/auth/profile', updates)
       const updatedUser = { ...user, ...data }
       localStorage.setItem('userInfo', JSON.stringify(updatedUser))
       setUser(updatedUser)
