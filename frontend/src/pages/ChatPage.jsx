@@ -35,7 +35,7 @@ const ChatPage = () => {
   useEffect(() => {
     if (!user) return
     
-    const newSocket = io('http://localhost:5000', {
+    const newSocket = io('https://quickchat-backend-36zo.onrender.com', {
       transports: ['websocket'],
       cors: {
         origin: "http://localhost:5173"
