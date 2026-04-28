@@ -44,7 +44,7 @@ const ProfileModal = ({ isOpen, onClose, socket }) => {
         formData.append('profilePic', selectedFile)
       }
       
-      const { data } = await axios.put('http://localhost:5000/api/auth/profile', formData, {
+      const { data } = await axios.put('https://quickchat-backend-36zo.onrender.com/api/auth/profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
