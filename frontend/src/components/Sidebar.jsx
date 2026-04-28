@@ -37,12 +37,12 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
   // Fetch chats function
   const fetchChats = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/chat')
+      const { data } = await axios.get('https://quickchat-backend-36zo.onrender.com/api/chat')
       
       // For each chat, get the appropriate last message (respecting cleared status)
       const updatedChats = await Promise.all(data.map(async (chat) => {
         try {
-          const { data: lastMsgData } = await axios.get(`http://localhost:5000/api/message/last-message/${chat._id}`)
+          const { data: lastMsgData } = await axios.get(`https://quickchat-backend-36zo.onrender.com/api/message/last-message/${chat._id}`)
           return {
             ...chat,
             latestMessage: lastMsgData.lastMessage,
@@ -66,7 +66,7 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
   // Fetch unread counts
   const fetchUnreadCounts = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/message/unread/count')
+      const { data } = await axios.get('https://quickchat-backend-36zo.onrender.com/api/message/unread/count')
       console.log('Fetched unread counts:', data.unreadCounts)
       setUnreadCounts(data.unreadCounts || {})
     } catch (error) {
@@ -85,7 +85,7 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/auth/users')
+      const { data } = await axios.get('https://quickchat-backend-36zo.onrender.com/api/auth/users')
       setUsers(data)
     } catch (error) {
       console.error(error)
@@ -94,7 +94,7 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
 
   const accessChat = async (userId) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/chat/access', { userId })
+      const { data } = await axios.post('https://quickchat-backend-36zo.onrender.com/api/chat/access', { userId })
       
       const chatExists = chats.find(c => c._id === data._id)
       if (!chatExists) {
@@ -116,7 +116,7 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
 
   const markAsRead = async (chatId) => {
     try {
-      await axios.put(`http://localhost:5000/api/message/read/${chatId}`)
+      await axios.put(`https://quickchat-backend-36zo.onrender.com/api/message/read/${chatId}`)
       // Update local unread count
       setUnreadCounts(prev => ({ ...prev, [chatId]: 0 }))
       // Refresh chats to update UI
@@ -136,7 +136,7 @@ const Sidebar = ({ socket, selectedChat, setSelectedChat, chats, setChats, onlin
 
   const handleDeleteUser = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/auth/user/${user._id}`)
+      await axios.delete(`https://quickchat-backend-36zo.onrender.com/api/auth/user/${user._id}`)
       localStorage.removeItem('userInfo')
       logout()
       navigate('/login')
