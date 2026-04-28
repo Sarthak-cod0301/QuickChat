@@ -17,7 +17,7 @@ const GroupModal = ({ isOpen, onClose, users }) => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/chat/group', {
+      await axios.post('https://quickchat-backend-36zo.onrender.com/api/chat/group', {
         chatName: groupName,
         users: selectedUsers.map(u => u._id)
       })
